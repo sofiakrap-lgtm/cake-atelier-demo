@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Tapahtumat – The Cake Atelier (demo)</title>
   <meta name="description" content="Tulevat leivontakurssit, pop-upit ja tapahtumat The Cake Atelierssa.">
-  <link rel="icon" href="assets/favicon.svg">
+  <link rel="icon" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="tapahtumat.html">
   <a class="skip-link" href="#main">Siirry sisältöön</a>
@@ -17,13 +17,20 @@
 
   <main id="main">
     <section class="wrap section section--tight">
-      <span class="eyebrow">Tapahtumat</span>
-      <h1>Tulevat tapahtumat ja kurssit</h1>
-      <p class="lead">Leivontakurssit, pop-upit ja tapahtumat – tervetuloa mukaan.</p>
+      <span class="eyebrow">Workshopit &amp; tapahtumat</span>
+      <h1>Tulevat workshopit ja kurssit</h1>
+      <p class="lead">
+        Leivonta- ja koristelukurssit, pop-upit ja yhteiset hetket – tervetuloa mukaan.
+        Järjestämme myös yksityisiä workshopeja ryhmille.
+      </p>
+      <p style="color:var(--muted)">
+        Suunnitteletko häitä tai isompaa tilaisuutta? Katso
+        <a href="catering.html">catering ja juhlat</a>.
+      </p>
     </section>
 
     <section class="wrap section section--tight">
-      <!-- Tapahtumat renderöidään site.js:stä -->
+      <!-- Workshopit ja tapahtumat renderöidään site.js:stä -->
       <div class="grid" id="tapahtumat" style="gap:1rem"><!-- JS täyttää --></div>
     </section>
 
@@ -37,7 +44,7 @@
   </main>
 
   <div id="site-footer"></div>
-  <script src="data/site.js"></script>
-  <script src="js/main.js"></script>
+  <script src="site.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

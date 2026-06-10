@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Cake Atelier – käsintehdyt juhlakakut Helsingistä (demo)</title>
   <meta name="description" content="The Cake Atelier – pieni designvetoinen kakkustudio Helsingissä. Käsintehdyt juhlakakut, pienissä erissä, yhdelle päivälle kerrallaan.">
-  <link rel="icon" href="assets/favicon.svg">
+  <link rel="icon" href="favicon.svg">
   <!-- Google Fonts: Fraunces (otsikot) + Work Sans (leipäteksti) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="index.html">
   <a class="skip-link" href="#main">Siirry sisältöön</a>
@@ -34,10 +34,8 @@
           <a class="btn btn--ghost" href="tilaa.html">Pyydä tarjous</a>
         </div>
       </div>
-      <div class="hero__media kuvapaikka kuvapaikka--laaja reveal">
-        <!-- Kuvapaikka: vaihda hero-kuvaan (luonnonvalo, pehmeät sävyt) -->
-        <span class="kuvapaikka__teksti">oma kuva tähän</span>
-      </div>
+      <div class="hero__media kuvapaikka kuvapaikka--laaja reveal has-img" role="img"
+           aria-label="Hääkakku" style="background-image:url('h%C3%A4%C3%A4kakku.jpg')"></div>
     </section>
 
     <!-- NÄIN SE TOIMII (3 vaihetta: kysely → suunnittelu → toimitus) -->
@@ -123,9 +121,8 @@
             </p>
             <a class="btn btn--ghost" href="meista.html">Lue tarinamme</a>
           </div>
-          <div class="kuvapaikka kuvapaikka--laaja">
-            <span class="kuvapaikka__teksti">oma kuva tähän</span>
-          </div>
+          <div class="kuvapaikka kuvapaikka--laaja has-img" role="img" aria-label="Kakkujen koristelua"
+               style="background-image:url('referenssikuva,%20kakkujen%20koristelu.jpg')"></div>
         </div>
       </div>
     </section>
@@ -135,7 +132,7 @@
   <!-- Jaettu footer + ostoskori injektoidaan tähän (js/main.js) -->
   <div id="site-footer"></div>
 
-  <script src="data/site.js"></script>
-  <script src="js/main.js"></script>
+  <script src="site.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
