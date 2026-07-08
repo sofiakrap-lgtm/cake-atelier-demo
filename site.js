@@ -23,7 +23,7 @@ const SITE = {
 
   /* Sivuston rakentaja näkyy footerissa. Vaihda omaan nimeesi / yritykseesi. */
   rakentaja: "Sivuston rakentaja: Studio Blomma",
-  rakentajaLinkki: "[TÄYTÄ STUDIO BLOMMAN URL]",
+  rakentajaLinkki: "https://studioblomma.com",
 
   /* --- Yhteystiedot (näkyvät footerissa ja yhteystiedot-sivulla) --------- */
   puhelin: "+358 40 123 4567",
