@@ -72,8 +72,33 @@
   function renderHeader() {
     const linkit = SITE.navi
       .map(function (n) {
-        const aktiivinen = n.linkki === sivu ? ' aria-current="page"' : "";
-        return '<li><a href="' + n.linkki + '"' + aktiivinen + ">" + n.teksti + "</a></li>";
+        const alavalikko = n.alavalikko || [];
+
+        // Ei alavalikkoa: tavallinen linkki
+        if (!alavalikko.length) {
+          const aktiivinen = n.linkki === sivu ? ' aria-current="page"' : "";
+          return '<li><a href="' + n.linkki + '"' + aktiivinen + ">" + n.teksti + "</a></li>";
+        }
+
+        // Alavalikko: yläkohta + sisäkkäinen lista.
+        // Korosta yläkohta myös silloin, kun aktiivinen sivu on alavalikossa.
+        const lapsiAktiivinen = alavalikko.some(function (a) { return a.linkki === sivu; });
+        const ylaAktiivinen = n.linkki === sivu || lapsiAktiivinen;
+        const alalinkit = alavalikko
+          .map(function (a) {
+            const aktiivinen = a.linkki === sivu ? ' aria-current="page"' : "";
+            return '<li><a href="' + a.linkki + '"' + aktiivinen + ">" + a.teksti + "</a></li>";
+          })
+          .join("");
+        return (
+          '<li class="has-sub">' +
+          '<a class="nav__toplink" href="' + n.linkki + '"' +
+          (ylaAktiivinen ? ' aria-current="page"' : "") +
+          ' aria-haspopup="true" aria-expanded="false">' +
+          n.teksti + '<span class="nav__arrow" aria-hidden="true">▾</span></a>' +
+          '<ul class="nav__sub">' + alalinkit + "</ul>" +
+          "</li>"
+        );
       })
       .join("");
 
@@ -93,7 +118,7 @@
       '<img src="logo.svg" alt="' + SITE.nimi + '"></a>' +
       '<ul class="nav__links" id="paavalikko">' + linkit + "</ul>" +
       '<div class="nav__actions">' +
-      '<a class="btn btn--primary btn--small" href="hintalaskuri.html">Tilaa nyt</a>' +
+      '<a class="btn btn--primary btn--small" href="tilaa.html">Tilaa nyt</a>' +
       '<button class="cart-btn" id="cart-open" aria-label="Avaa ostoskori">' +
       ICONS.cart +
       '<span class="cart-count" id="cart-count" hidden>0</span>' +
@@ -212,14 +237,28 @@
       const auki = links.classList.toggle("open");
       burger.setAttribute("aria-expanded", auki ? "true" : "false");
     });
-    // Sulje valikko kun linkkiä klikataan
+    // Sulje valikko kun linkkiä klikataan (myös alavalikon linkit ja
+    // yläkohdan nuoli-ikonin sisällä olevat klikkaukset).
     links.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") {
+      if (e.target.closest("a")) {
         links.classList.remove("open");
         burger.setAttribute("aria-expanded", "false");
       }
     });
   }
+
+  // Pudotusvalikot: päivitä aria-expanded hoverilla/focuksella (desktop).
+  document.querySelectorAll(".nav__links .has-sub").forEach(function (li) {
+    const top = li.querySelector(".nav__toplink");
+    if (!top) return;
+    const aseta = function (auki) { top.setAttribute("aria-expanded", auki ? "true" : "false"); };
+    li.addEventListener("mouseenter", function () { aseta(true); });
+    li.addEventListener("mouseleave", function () { aseta(false); });
+    li.addEventListener("focusin", function () { aseta(true); });
+    li.addEventListener("focusout", function () {
+      if (!li.contains(document.activeElement)) aseta(false);
+    });
+  });
 
   // Läpinäkyvä yläpalkki hero-kuvan päällä; muuttuu kiinteäksi kun vieritetään.
   const headerEl = document.querySelector(".site-header");
@@ -249,7 +288,7 @@
      4. DEMO-OSTOSKORI
      – Tallennetaan localStorageen, jotta säilyy sivulta toiselle.
      ======================================================================= */
-  const CART_KEY = "karpalo_demo_cart";
+  const CART_KEY = "cakeatelier_demo_cart";
 
   function lueKori() {
     try {

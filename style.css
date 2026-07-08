@@ -337,6 +337,48 @@ img { max-width: 100%; display: block; }
 .nav__links a:hover { background: var(--cream); text-decoration: none; }
 .nav__links a[aria-current="page"] { color: var(--terra-dark); }
 
+/* Pudotusvalikot (desktop) ----------------------------------------------- */
+.nav__links li.has-sub { position: relative; }
+.nav__toplink { display: inline-flex; align-items: center; gap: 0.25rem; }
+.nav__arrow {
+  font-size: 0.7em;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+.nav__sub {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--varjo);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 120;
+}
+.nav__links li.has-sub:hover > .nav__sub,
+.nav__links li.has-sub:focus-within > .nav__sub {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.nav__links li.has-sub:hover .nav__arrow,
+.nav__links li.has-sub:focus-within .nav__arrow { transform: rotate(180deg); }
+.nav__sub a {
+  display: block;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.nav__sub a:hover { background: var(--cream); }
+
 .nav__actions {
   display: flex;
   align-items: center;
@@ -481,6 +523,10 @@ img { max-width: 100%; display: block; }
 }
 .site-header.is-transparent .btn--primary:hover { background: #fff; color: var(--ink); }
 .site-header.is-transparent .nav__mark img { filter: brightness(0) invert(1); }
+/* Läpinäkyvässä headerissa yläkohdat ovat valkoisia, mutta pudotusvalikon
+   vaalealla pohjalla olevat linkit pysyvät tummina ja luettavina. */
+.site-header.is-transparent .nav__sub a { color: var(--ink); }
+.site-header.is-transparent .nav__sub a[aria-current="page"] { color: var(--terra-dark); text-decoration: none; }
 /* Mobiilivalikon pudotusvalikko pysyy aina luettavana (vaalea pohja) */
 .site-header.is-transparent .nav__links.open a { color: var(--ink); }
 
@@ -1067,9 +1113,9 @@ img { max-width: 100%; display: block; }
   .locations { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 720px) {
-  body { font-size: 16px; }
-
+/* Hampurilaisvalikko aktivoituu jo tabletilla/pienellä läppärillä (≤1024px),
+   jotta 6 päälinkkiä + pudotusvalikot eivät ahtaudu. */
+@media (max-width: 1024px) {
   /* Mobiilinavigaatio: linkit piiloon, hampurilainen näkyviin */
   .nav__burger { display: flex; }
   .nav__links {
@@ -1092,6 +1138,35 @@ img { max-width: 100%; display: block; }
   .nav__links.open { transform: translateY(0); }
   .nav__links a { padding: 0.8rem 0.5rem; border-bottom: 1px solid var(--line); border-radius: 0; }
   .nav__links li:last-child a { border-bottom: none; }
+
+  /* Pudotusvalikot mobiilissa: alavalikon kohdat näkyvät sisennettyinä
+     pääkohdan alla (auki-tilassa). */
+  .nav__links li.has-sub { position: static; }
+  .nav__toplink { justify-content: space-between; }
+  .nav__arrow { transform: rotate(180deg); }
+  .nav__sub {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  .nav__sub a {
+    padding-left: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    white-space: normal;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 720px) {
+  body { font-size: 16px; }
 
   .grid--3, .grid--2 { grid-template-columns: 1fr; }
   .gallery { grid-template-columns: repeat(2, 1fr); }
