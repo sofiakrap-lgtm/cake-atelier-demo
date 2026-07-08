@@ -22,8 +22,8 @@ const SITE = {
     "pienissä erissä ja hyvistä raaka-aineista – yhdelle perheelle, yhteen päivään.",
 
   /* Sivuston rakentaja näkyy footerissa. Vaihda omaan nimeesi / yritykseesi. */
-  rakentaja: "Sivuston rakentaja: [oma nimesi]",
-  rakentajaLinkki: "#",
+  rakentaja: "Sivuston rakentaja: Studio Blomma",
+  rakentajaLinkki: "https://studioblomma.com",
 
   /* --- Yhteystiedot (näkyvät footerissa ja yhteystiedot-sivulla) --------- */
   puhelin: "+358 40 123 4567",
@@ -683,15 +683,29 @@ const SITE = {
     ],
   },
 
-  /* --- Navigaation linkit (jaettu header käyttää tätä) ------------------- */
+  /* --- Navigaation linkit (jaettu header käyttää tätä) -------------------
+     Kohdat, joilla on "alavalikko"-taulukko, renderöidään pudotusvalikkona.
+     Yläkohdan oma "linkki" toimii edelleen (esim. Tuotteet → tuotteet.html). */
   navi: [
     { teksti: "Etusivu", linkki: "index.html" },
-    { teksti: "Tuotteet", linkki: "tuotteet.html" },
-    { teksti: "Maut", linkki: "maut.html" },
-    { teksti: "Palvelut", linkki: "palvelut.html" },
-    { teksti: "Catering", linkki: "catering.html" },
-    { teksti: "Hääkakut", linkki: "haakakku.html" },
-    { teksti: "Tapahtumat", linkki: "tapahtumat.html" },
+    {
+      teksti: "Tuotteet",
+      linkki: "tuotteet.html",
+      alavalikko: [
+        { teksti: "Kaikki tuotteet", linkki: "tuotteet.html" },
+        { teksti: "Maut", linkki: "maut.html" },
+      ],
+    },
+    {
+      teksti: "Palvelut",
+      linkki: "palvelut.html",
+      alavalikko: [
+        { teksti: "Palvelut", linkki: "palvelut.html" },
+        { teksti: "Catering", linkki: "catering.html" },
+        { teksti: "Hääkakut", linkki: "haakakku.html" },
+        { teksti: "Tapahtumat", linkki: "tapahtumat.html" },
+      ],
+    },
     { teksti: "Myymälä", linkki: "myymala.html" },
     { teksti: "Meistä", linkki: "meista.html" },
     { teksti: "Yhteystiedot", linkki: "yhteystiedot.html" },
